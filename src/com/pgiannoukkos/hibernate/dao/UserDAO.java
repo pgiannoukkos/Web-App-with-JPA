@@ -19,6 +19,8 @@ public class UserDAO {
 		// Get Session object
 		Session session = sessionFactory.openSession();
 
+		Transaction transaction = session.beginTransaction();
+
 		// SQL query
 		String hql = "SELECT uname, email FROM users WHERE uname = :userName OR email = :email";
 		NativeQuery query = session.createNativeQuery(hql);
@@ -32,8 +34,6 @@ public class UserDAO {
 			return true;
 		}
 
-		session.close();
-		sessionFactory.close();
 		return false;
 	}
 }

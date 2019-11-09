@@ -20,7 +20,7 @@
 <div class="sign-up-form">
 	<h1>Sign Up Now</h1>
 	<form action="register" method="post">
-		<input type="text" name="uname" class="input-box" placeholder="Your Username" required="required"><br>
+		<input type="text" name="userName" class="input-box" placeholder="Your Username" required="required"><br>
 		<input type="password" name="password" class="input-box" placeholder="Your Password" required="required"><br>
 		<input type="email" name="email" class="input-box" placeholder="Your Email" required="required"><br>
 		<input type="submit" class="signup-btn" value="Sign Up">
