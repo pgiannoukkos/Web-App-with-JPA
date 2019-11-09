@@ -82,23 +82,28 @@ public class UserDAO {
 		Session session = sessionFactory.openSession();
 
 		// SQL query
-		String hql = "SELECT uname, password FROM users WHERE uname = :userName";
-		NativeQuery query = session.createNativeQuery(hql);
+		String hql = "SELECT * FROM users WHERE uname = :userName";
+		NativeQuery query = session.createNativeQuery(hql, User.class);
 		query.setParameter("userName", userName);
 
-		List<User[]> res = query.list();
+		User existingUser = (User) query.uniqueResult();
 
-		if (res.isEmpty()) {
+		if (existingUser == null) {
 			System.out.println("\n\n User not Found \n");
 			session.close();
 			sessionFactory.close();
 			return true;
 		} else {
-			for (User[] row: res) {
-				System.out.println(row[0].toString() + "\t" + row[1].toString());
+			if (!existingUser.getPassWord().equals(password)) {
+				System.out.println("\n\n Wrong Password! \n");
+				session.close();
+				sessionFactory.close();
+				return true;
 			}
 		}
 
+		session.close();
+		sessionFactory.close();
 		return false;
 	}
 }
