@@ -24,8 +24,10 @@ public class UserRegisterController extends HttpServlet {
 			if (UserDAO.userExists(userName, email)) {
 				response.sendRedirect("./error.jsp");
 			} else {
-				response.sendRedirect("./login.jsp");
+				UserDAO.createUser(userName, password, email);
+				response.sendRedirect("./success.jsp");
 			}
+
 		} catch (HibernateException ex) {
 			response.getWriter().append(ex.getMessage());
 		}
