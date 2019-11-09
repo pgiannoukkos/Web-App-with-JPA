@@ -20,8 +20,8 @@
 <body>
 <div class="sign-up-form">
 	<h1>Sign in</h1>
-	<form action="LogIn" method="post">
-		<input type="text" name="uname" class="input-box" placeholder="Username" required="required"><br>
+	<form action="login" method="post">
+		<input type="text" name="userName" class="input-box" placeholder="Username" required="required"><br>
 		<input type="password" name="password" class="input-box" placeholder="Password" required="required"><br>
 		<input type="submit" class="signup-btn" value="Sign in">
 		<hr>

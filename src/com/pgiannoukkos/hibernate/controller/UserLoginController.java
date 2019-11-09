@@ -10,22 +10,21 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class UserRegisterController extends HttpServlet {
+public class UserLoginController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String userName = request.getParameter("userName").toLowerCase();
 		String password = request.getParameter("password");
-		String email = request.getParameter("email").toLowerCase();
 
 		HttpSession session = request.getSession(true);
 
 		try {
 
-			if (UserDAO.userExists(userName, email)) {
-				response.sendRedirect("./error.jsp");
+			if (UserDAO.checkUserLogin(userName, password)) {
+				response.sendRedirect("./error_login.jsp");
 			} else {
-				UserDAO.createUser(userName, password, email);
-				response.sendRedirect("./success.jsp");
+				request.setAttribute("username", userName);
+				getServletContext().getRequestDispatcher("/hello.jsp").forward(request, response);
 			}
 
 		} catch (HibernateException ex) {

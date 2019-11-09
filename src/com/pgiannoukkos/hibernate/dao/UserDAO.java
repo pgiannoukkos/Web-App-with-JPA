@@ -30,6 +30,8 @@ public class UserDAO {
 
 		if (!res.isEmpty()) {
 			System.out.println("\n\n User Exists \n");
+			session.close();
+			sessionFactory.close();
 			return true;
 		}
 
@@ -66,5 +68,37 @@ public class UserDAO {
 		// Close the Transacrion
 		session.close();
 		sessionFactory.close();
+	}
+
+	public static boolean checkUserLogin(String userName, String password) throws HibernateException {
+
+		// Configure Hibernate
+		Configuration configuration = new Configuration().configure();
+
+		// Create SessionFactory
+		SessionFactory sessionFactory = configuration.buildSessionFactory();
+
+		// Get Session object
+		Session session = sessionFactory.openSession();
+
+		// SQL query
+		String hql = "SELECT uname, password FROM users WHERE uname = :userName";
+		NativeQuery query = session.createNativeQuery(hql);
+		query.setParameter("userName", userName);
+
+		List<User[]> res = query.list();
+
+		if (res.isEmpty()) {
+			System.out.println("\n\n User not Found \n");
+			session.close();
+			sessionFactory.close();
+			return true;
+		} else {
+			for (User[] row: res) {
+				System.out.println(row[0].toString() + "\t" + row[1].toString());
+			}
+		}
+
+		return false;
 	}
 }
