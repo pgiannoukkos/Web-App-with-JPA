@@ -21,7 +21,8 @@ public class UserLoginController extends HttpServlet {
 		try {
 
 			if (UserDAO.checkUserLogin(userName, password)) {
-				response.sendRedirect("./error_login.jsp");
+				request.setAttribute("message", "Wrong username or password!");
+				getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
 			} else {
 				request.setAttribute("username", userName);
 				getServletContext().getRequestDispatcher("/hello.jsp").forward(request, response);

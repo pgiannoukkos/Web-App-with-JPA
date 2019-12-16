@@ -20,6 +20,7 @@
 <body>
 <div class="sign-up-form">
 	<h1>Sign in</h1>
+	<p>${message}</p>
 	<form action="login" method="post">
 		<input type="text" name="userName" class="input-box" placeholder="Username" required="required"><br>
 		<input type="password" name="password" class="input-box" placeholder="Password" required="required"><br>
